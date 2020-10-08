@@ -5,7 +5,7 @@
 	import Message from "./Message.svelte";
 
 
-	const socket = io("https://bufige-chat-server.herokuapp.com:3000");
+	const socket = io("https://bufige-chat-server.herokuapp.com");
 
 	let inputUser;
 	let inputMessage;
