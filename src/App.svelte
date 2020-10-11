@@ -4,8 +4,8 @@
 
 	import Message from "./Message.svelte";
 
-
-	const socket = io("https://bufige-chat-server.herokuapp.com");
+	// "https://bufige-chat-server.herokuapp.com"
+	const socket = io('https://bufige-chat-server.herokuapp.com');
 
 	let inputUser;
 	let inputMessage;
@@ -17,6 +17,11 @@
 
 	socket.on("message", (data) => {
 		messages = [...messages, data];
+	});
+
+	socket.on('onLoad', (data) => {
+		messages = [...data];
+		console.log('onLoad:', data);
 	});
 
 	onMount( () => {
