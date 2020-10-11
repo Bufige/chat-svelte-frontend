@@ -4,6 +4,8 @@
 
 	import Message from "./Message.svelte";
 
+	//https://bufige-chat-server.herokuapp.com
+	//http://localhost:3000/
 	const socket = io('https://bufige-chat-server.herokuapp.com');
 
 	let inputUser;
@@ -19,7 +21,11 @@
 	});
 
 	socket.on('onLoad', (data) => {
+		console.log('loading messages...');
 		messages = [...data];
+
+		if(user)
+			goToBottom();
 	});
 
 	onMount( () => {
@@ -50,7 +56,7 @@
 			content: msg,
 			time: new Date().toLocaleTimeString(),
 			username: user
-		};leonar
+		};
 	};
 
 	const goToBottom = () => {
