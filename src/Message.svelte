@@ -1,7 +1,6 @@
 <script>
 	export let message;
 
-	console.log(message);
 </script>
 
 <style>

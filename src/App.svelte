@@ -4,7 +4,6 @@
 
 	import Message from "./Message.svelte";
 
-	// "https://bufige-chat-server.herokuapp.com"
 	const socket = io('https://bufige-chat-server.herokuapp.com');
 
 	let inputUser;
@@ -21,7 +20,6 @@
 
 	socket.on('onLoad', (data) => {
 		messages = [...data];
-		console.log('onLoad:', data);
 	});
 
 	onMount( () => {
@@ -35,15 +33,16 @@
 		if (message) {
 			socket.emit("add-message", generateMessage(message));
 		}
-
 		message = null;
+		goToBottom();
 	};
 	const selectUsername = () => {
 		user = inputUserValue;
 		
 		setTimeout(() => {
 			inputMessage.focus();
-		}, 500);
+			goToBottom();
+		}, 50);
 		
 	}
 	const generateMessage = (msg) => {
@@ -51,8 +50,16 @@
 			content: msg,
 			time: new Date().toLocaleTimeString(),
 			username: user
-		};
+		};leonar
 	};
+
+	const goToBottom = () => {
+		setTimeout( () => {
+			const content = document.getElementById("content");
+			content.scrollTop = content.scrollHeight;
+		}, 100);
+	}
+	
 </script>
 
 <style>
@@ -103,7 +110,7 @@
 		</form>
 	</div>
 {:else}
-	<div class="content">
+	<div class="content" id="content">
 		{#each messages as msg}
 			<Message message={msg} />
 		{/each}
